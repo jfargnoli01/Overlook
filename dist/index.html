@@ -4,13 +4,29 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Overlook</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
+  <nav>
+    <h1>THE OVERLOOK BOUTIQUE HOTEL</h1>
+  </nav>
+  <main>
+    <section class="login-container">
+      <p class="user-login-title">User Login:</p>
+      <section class="login-box">
+        <div class="username-field">
+          <label class="username">USERNAME</label>
+          <input class="username-input" type="text">
+        </div>
+        <div class="password-field">
+          <label class="password">PASSWORD</label>
+          <input class="password-input" type="text">
+        </div>
+        <button class="sign-in-button">SIGN IN</button>
+      </section>
+    </section>
+  </main>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
-
 </body>
 </html>
