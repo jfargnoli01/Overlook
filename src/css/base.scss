@@ -1,6 +1,32 @@
 /* This is an example of how to import a partial scss file*/
 @import '_variables';
 
+//font-family: 'Bodoni Moda', serif;
+// font-family: 'Montserrat', sans-serif;
+
+nav {
+  display: flex;
+  background-color: $primary-black;
+  justify-content: center;
+}
+
+h1 {
+  color: $primary-white;
+  font-weight: 500;
+}
+
+
 body {
   background: $primary-background;
+}
+
+.nav-sub-header {
+  color: $primary-white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: 14px;
+}
+
+hidden {
+  display: none;
 }

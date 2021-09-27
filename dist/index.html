@@ -4,15 +4,22 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/css/base.scss"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   <title>Overlook</title>
 </head>
 <body>
   <nav>
-    <h1>THE OVERLOOK BOUTIQUE HOTEL</h1>
+    <div class="nav-container">
+      <h1>THE OVERLOOK BOUTIQUE HOTEL</h1>
+      <h2 class="nav-sub-header">COLORADO</h2>
+    </div>
   </nav>
   <main>
     <section class="login-container">
-      <p class="user-login-title">User Login:</p>
+      <p class="user-login-title">USER LOGIN:</p>
       <section class="login-box">
         <div class="username-field">
           <label class="username">USERNAME</label>
@@ -23,6 +30,30 @@
           <input class="password-input" type="text">
         </div>
         <button class="sign-in-button">SIGN IN</button>
+      </section>
+    </section>
+    <section class="bookings-container hidden">
+      <h2>BOOKINGS</h2>
+      <p>Past, present, future bookings listed here</p>
+      <p>Total: Enter total cost of bookings here</p>
+    </section>
+    <section class="room-options-container hidden">
+      <section>
+        <div class="king-suites-container">
+          <p>King Suites</p>
+          <img/>
+          <button class="check-availabilty-button">CHECK AVAILABILITY</button>
+        </div>
+        <div class="queen-suites-container">
+          <p>Queen Suites</p>
+          <img/>
+          <button class="check-availabilty-button">CHECK AVAILABILITY</button>
+        </div>
+        <div class="deluxe-suites-container">
+          <p>Deluxe  Suites</p>
+          <img/>
+          <button class="check-availabilty-button">CHECK AVAILABILITY</button>
+        </div>
       </section>
     </section>
   </main>
