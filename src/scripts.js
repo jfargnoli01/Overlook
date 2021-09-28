@@ -7,16 +7,35 @@ import Guest from '../src/classes/Guest';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
 
+const getRoomData = () => {
+  fetch(`http://localhost:3001/api/v1/rooms`)
+  .then(response => response.json())
+  .then(data => console.log(data.rooms))
+  .catch(error => console.log(error));
+}
+
+const convertBookingsToHTML = (guestId, bookings) => {
+  bookings.map(booking => {
+    document.querySelector('.guest-bookings').insertAdjacentHTML(
+      'beforeEnd', `<p>You booked room ${booking.roomNumber} on ${booking.date}</p>`
+      );
+  })
+  getRoomData();
+}
+
+const retrieveGuestBookings = (guestId) => {
+  const bookings = fetch(`http://localhost:3001/api/v1/bookings`)
+  .then(response => response.json())
+  .then(data => convertBookingsToHTML(guestId, data.bookings.filter(booking => booking.userID === guestId.id)))
+  .catch(error => console.log(error));
+}
+
 const createGuest = (guestInfo) => {
   const newGuest = new Guest(guestInfo);
   document.querySelector('.login-div').classList.add('hidden');
   document.querySelector('.bookings-container').classList.remove('hidden');
   document.querySelector('.room-options-container').classList.remove('hidden');
-  newGuest.logInfo();
-  fetch(`http://localhost:3001/api/v1/bookings`)
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
+  retrieveGuestBookings(newGuest.id)
 }
 
 const getGuest = (guestId) => {
