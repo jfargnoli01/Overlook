@@ -13,7 +13,7 @@ const calculateTotalSpent = (rooms) => {
     return acc;
   }, 0)
   document.querySelector('.total-spent').insertAdjacentHTML('beforeEnd', `
-    <p>You have spent a total of ${totalSpent} with us!</p>
+    <p>You have spent a total of $${totalSpent} with us!</p>
   `)
 }
 
