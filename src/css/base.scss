@@ -1,6 +1,7 @@
 /* This is an example of how to import a partial scss file*/
 @import '_variables';
 
+
 //font-family: 'Bodoni Moda', serif;
 // font-family: 'Montserrat', sans-serif;
 
@@ -22,15 +23,20 @@ body {
 }
 
 main {
+  background: url('../images/shining-maz.png');
   display: flex;
   font-family: 'Montserrat', sans-serif; 
-  background: url('../images/hotel-entrance.jpeg') no-repeat center 100%;
+  width: 100%;
 }
 
 .login-container {
   display: flex;
   width: 340px;
   border: 1px solid $primary-black;
+}
+
+.sign-in-button {
+  color: blue;
 }
 
 .nav-sub-header {
