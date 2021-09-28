@@ -6,27 +6,46 @@
 
 nav {
   display: flex;
-  background-color: $primary-black;
+  background-color: $primary-white;
   justify-content: center;
+  text-align: center;
 }
 
 h1 {
-  color: $primary-white;
-  font-weight: 500;
+  color: $primary-black;
+  font-weight: 400;
+  margin: 20px 0 0 0;
 }
 
-
 body {
-  background: $primary-background;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  font-family: 'Montserrat', sans-serif; 
+  background: url('../images/hotel-entrance.jpeg') no-repeat center 100%;
+}
+
+.login-container {
+  display: flex;
+  width: 340px;
+  border: 1px solid $primary-black;
 }
 
 .nav-sub-header {
-  color: $primary-white;
+  color: $primary-black;
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
-  font-size: 14px;
+  font-size: 16px;
 }
 
-hidden {
+.check-availabilty-button {
+  font-family: 'Montserrat', sans-serif;
+  border-style: none;
+  background-color: none;
+}
+
+.hidden {
   display: none;
 }
