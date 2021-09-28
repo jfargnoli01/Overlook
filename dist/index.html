@@ -17,15 +17,23 @@
       <h2 class="nav-sub-header">COLORADO</h2>
     </div>
   </nav>
-  <section class="search-container hidden">
-    <label class="room-filter-label">Filter By Room Type</label>
-    <select id="room-type-search" class="room-type-input" type="dropdown">
-      <option value="suite">suite</option>
-      <option value="residential-suite">residential suite</option>
-      <option value="junior-suite">junior suite</option>
-      <option value="single-room">single</option>
-    <select/>  
-    <button class="room-type-search-button">Search</button>
+  <section class="search-field-container">
+    <section class="search-container hidden">
+      <label class="room-filter-label">Filter By Room Type</label>
+      <select id="room-type-search" class="room-type-input" type="dropdown">
+        <option value="All">All</option>
+        <option value="suite">Suite</option>
+        <option value="residential-suite">Residential Suite</option>
+        <option value="junior-suite">Junior Suite</option>
+        <option value="single-room">Single</option>
+      <select/>  
+      <button class="room-type-search-button">Search</button>
+    </section>
+    <section class="search-container hidden">
+      <label class="date-filter-label">Select A Date</label>
+      <input class="date-filter-input" placeholder="YYYY/MM/DD">
+      <button class="date-filter-button">Search</button>
+    </section>
   </section>
   <main>
     <div class="login-div">
@@ -51,16 +59,16 @@
     </section>
     <section class="room-options-container hidden">
       <div class="room-options single-room-options">
-        <p class="room-type-title single-room-container">Single Rooms</p>
+        <p class="room-type-title single-room-container">SINGLE ROOMS</p>
       </div>
       <div class="room-options junior-suite-options">
-        <p class="room-type-title junior-suite-container">Junior Suites</p>
+        <p class="room-type-title junior-suite-container">JUNIOR SUITES</p>
       </div>
       <div class="room-options residential-suite-options">
-        <p class="room-type-title residential-suite-container">Residential Suites</p>
+        <p class="room-type-title residential-suite-container">RESIDENTIAL SUITES</p>
       </div>
       <div class="room-options suite-options">
-        <p class="room-type-title suite-container">Suites</p>
+        <p class="room-type-title suite-container">SUITES</p>
       </div>
     </section>
   </main>
