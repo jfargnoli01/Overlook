@@ -4,8 +4,28 @@
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 import Guest from '../src/classes/Guest';
+import Dashboard from '../src/classes/Dashboard';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
+const roomFilterButton = document.querySelector('.room-type-search-button');
+const roomTypeCategories = document.querySelectorAll('.room-options');
+const roomFilterValue = document.querySelector('.room-type-search');
+const dateFilterButton = document.querySelector('.date-filter-button');
+
+let dashboard;
+let newGuest;
+
+const filterRoom = () => {
+  const roomTypeValue = document.querySelector('.room-type-input').value;
+  if (roomTypeValue === 'All') {
+    dashboard.filterRoomByType(roomTypeValue);
+    roomTypeCategories.forEach(cat => cat.classList.remove('hidden'));
+  } else {
+    roomTypeCategories.forEach(cat => cat.classList.add('hidden'));
+    document.querySelector(`.${roomTypeValue}-options`).classList.remove('hidden');
+  }
+  dashboard.filterRoomByType(roomTypeValue);
+}
 
 const displayRoomsOnDom = (roomTypes, rooms) => {
   roomTypes.forEach(type => {
@@ -21,8 +41,6 @@ const displayRoomsOnDom = (roomTypes, rooms) => {
       }
     })
   })
-  // const roomType = filteredRooms[0].roomType.join('-')
-  // document.querySelector(`.${roomType}`).insertAdjacentHTML('beforeEnd', `<p>balls</p>`)
 }
 
 const filterRoomByType = (rooms) => {
@@ -46,16 +64,22 @@ const calculateTotalSpent = (rooms) => {
   filterRoomByType(rooms);
 }
 
-const getRoomData = (bookings) => {
+const createDashboard = (rooms, guestBookings, bookings) => {
+  dashboard = new Dashboard(rooms, guestBookings, bookings);
+  console.log(dashboard);
+  calculateTotalSpent(rooms)
+}
+
+const getRoomData = (guestBookings, bookings) => {
   fetch(`http://localhost:3001/api/v1/rooms`)
   .then(response => response.json())
-  .then(data => calculateTotalSpent(data.rooms))
+  .then(data => createDashboard(data.rooms, guestBookings, bookings))
   .catch(error => console.log(error));
 }
 
-const convertBookingsToHTML = (guestId, bookings) => {
-  getRoomData(bookings);
-  bookings.map(booking => {
+const convertBookingsToHTML = (guestBookings, bookings) => {
+  getRoomData(guestBookings, bookings);
+  guestBookings.map(booking => {
     document.querySelector('.guest-bookings').insertAdjacentHTML(
       'beforeEnd', `<p>You booked room ${booking.roomNumber} on ${booking.date}</p>`
       );
@@ -65,15 +89,16 @@ const convertBookingsToHTML = (guestId, bookings) => {
 const retrieveGuestBookings = (guestId) => {
   const bookings = fetch(`http://localhost:3001/api/v1/bookings`)
   .then(response => response.json())
-  .then(data => convertBookingsToHTML(guestId, data.bookings.filter(booking => booking.userID === guestId.id)))
+  .then(data => convertBookingsToHTML(data.bookings.filter(booking => booking.userID === guestId.id), data.bookings))
   .catch(error => console.log(error));
 }
 
 const createGuest = (guestInfo) => {
-  const newGuest = new Guest(guestInfo);
+  newGuest = new Guest(guestInfo);
   document.querySelector('.login-div').classList.add('hidden');
   document.querySelector('.bookings-container').classList.remove('hidden');
   document.querySelector('.room-options-container').classList.remove('hidden');
+  document.querySelectorAll('.search-container').forEach(container => container.classList.remove('hidden'));
   document.querySelector('main').insertAdjacentHTML('beforeBegin', `
   <h3 class="welcome-message">Welcome back, ${guestInfo.name}</h3>
   `);
@@ -98,5 +123,12 @@ const loginGuest = () => {
   }
 }
 
+const checkDates = () => {
+  const searchDate = document.querySelector('.date-filter-input').value;
+  dashboard.updateCurrentRooms(searchDate);
+}
+
 loginButton.addEventListener('click', loginGuest);
+roomFilterButton.addEventListener('click', filterRoom);
+dateFilterButton.addEventListener('click', checkDates);
 

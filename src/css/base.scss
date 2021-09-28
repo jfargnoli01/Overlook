@@ -14,8 +14,10 @@ nav {
 
 h1 {
   color: $primary-black;
-  font-weight: 400;
+  font-weight: 600;
   margin: 20px 0 0 0;
+  font-family: 'EB Garamond', serif;
+  font-size: 45px;
 }
 
 body {
@@ -26,6 +28,7 @@ main {
   background: url('../images/shining-maz.png');
   display: flex;
   font-family: 'Montserrat', sans-serif; 
+  margin: 0;
   width: 100%;
 }
 
@@ -36,20 +39,36 @@ main {
 }
 
 .login-container {
+  align-items: center;
+  background-color: #fff;
   display: flex;
-  width: 340px;
-  border: 1px solid $primary-black;
+  justify-content: space-around;
+  height: 13em;
+  width: 20em;
+  border: 10px double $primary-black;
+  border-radius: 3px;
+  padding: 5px;
 }
  
-// .sign-in-button {
+.sign-in-button {
+  cursor: pointer;
+  margin-top: 1em;
+  width: 11.5em;
+}
 
-// }
+.room-type-search-button {
+  margin-right: 3em;
+}
+
+.search-field-container {
+  display: flex;
+}
 
 .nav-sub-header {
   color: $primary-black;
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .check-availabilty-button {
@@ -59,12 +78,32 @@ main {
 }
 
 .welcome-message {
-  color: blue;
+  color: $primary-black;
+  font-weight: 500;
+  font-style: italic;
+  margin-left: 20px;
+}
+
+.bookings-container {
+  padding: 1em;
+}
+
+.bookings-title {
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.guest-bookings {
+  text-align: center;
+  background: white;
+  padding: 2px;
+  border: 1px solid black;
 }
 
 .room-options-container {
   display: flex;
   flex-direction: column;
+  padding-top: 1em;
   width: 100%;
 }
 
@@ -74,12 +113,20 @@ main {
   overflow: scroll;
 }
 
+.room-type-title {
+  margin-left: 1em;
+  margin-right: 3em;
+}
+
 .room-div {
-  border: 3px solid black;
+  background-color: #fff;
+  border: 1px solid black;
   display: flex;
   flex-direction: row;
   height: 100px;
+  margin-bottom: 1em;
   margin-right: 5px;
+  padding: .5em;
   width: 18em;
 }
 

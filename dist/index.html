@@ -7,16 +7,34 @@
   <link rel="stylesheet" href="/src/css/base.scss"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,400;1,500;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   <title>Overlook</title>
 </head>
 <body>
   <nav>
     <div class="nav-container">
-      <h1>THE OVERLOOK HOTEL</h1>
+      <h1>The Overlook Hotel</h1>
       <h2 class="nav-sub-header">COLORADO</h2>
     </div>
   </nav>
+  <section class="search-field-container">
+    <section class="search-container hidden">
+      <label class="room-filter-label">Filter By Room Type</label>
+      <select id="room-type-search" class="room-type-input" type="dropdown">
+        <option value="All">All</option>
+        <option value="suite">Suite</option>
+        <option value="residential-suite">Residential Suite</option>
+        <option value="junior-suite">Junior Suite</option>
+        <option value="single-room">Single</option>
+      <select/>  
+      <button class="room-type-search-button">Search</button>
+    </section>
+    <section class="search-container hidden">
+      <label class="date-filter-label">Select A Date</label>
+      <input class="date-filter-input" placeholder="YYYY/MM/DD">
+      <button class="date-filter-button">Search</button>
+    </section>
+  </section>
   <main>
     <div class="login-div">
       <section class="login-container">
@@ -37,20 +55,20 @@
     <section class="bookings-container hidden">
       <h2 class="bookings-title">BOOKINGS</h2>
       <p class="guest-bookings"></p>
-      <p class ="total-spent">Total: Enter total cost of bookings here</p>
+      <p class ="total-spent"></p>
     </section>
     <section class="room-options-container hidden">
-      <div class="room-options">
-        <p class="single-room-container">Single Rooms</p>
+      <div class="room-options single-room-options">
+        <p class="room-type-title single-room-container">SINGLE ROOMS</p>
       </div>
-      <div class="room-options">
-        <p class="junior-suite-container">Junior Suites</p>
+      <div class="room-options junior-suite-options">
+        <p class="room-type-title junior-suite-container">JUNIOR SUITES</p>
       </div>
-      <div class="room-options">
-        <p class="residential-suite-container">Residential Suites</p>
+      <div class="room-options residential-suite-options">
+        <p class="room-type-title residential-suite-container">RESIDENTIAL SUITES</p>
       </div>
-      <div class="room-options">
-        <p class="suite-container">Suites</p>
+      <div class="room-options suite-options">
+        <p class="room-type-title suite-container">SUITES</p>
       </div>
     </section>
   </main>
