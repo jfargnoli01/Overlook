@@ -4,5 +4,9 @@ class Guest {
     this.id = id;
   }
 
-
+  logInfo() {
+    console.log(this.name, this.id);
+  }
 };
+
+export default Guest;
