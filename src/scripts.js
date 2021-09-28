@@ -7,20 +7,30 @@ import Guest from '../src/classes/Guest';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
 
-const getRoomData = () => {
+const calculateTotalSpent = (rooms) => {
+  const totalSpent = rooms.reduce((acc, room) => {
+    acc += room.costPerNight;
+    return acc;
+  }, 0)
+  document.querySelector('.total-spent').insertAdjacentHTML('beforeEnd', `
+    <p>You have spent a total of ${totalSpent} with us!</p>
+  `)
+}
+
+const getRoomData = (bookings) => {
   fetch(`http://localhost:3001/api/v1/rooms`)
   .then(response => response.json())
-  .then(data => console.log(data.rooms))
+  .then(data => calculateTotalSpent(data.rooms))
   .catch(error => console.log(error));
 }
 
 const convertBookingsToHTML = (guestId, bookings) => {
+  getRoomData(bookings);
   bookings.map(booking => {
     document.querySelector('.guest-bookings').insertAdjacentHTML(
       'beforeEnd', `<p>You booked room ${booking.roomNumber} on ${booking.date}</p>`
       );
   })
-  getRoomData();
 }
 
 const retrieveGuestBookings = (guestId) => {
