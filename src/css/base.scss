@@ -29,15 +29,21 @@ main {
   width: 100%;
 }
 
+.login-div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
 .login-container {
   display: flex;
   width: 340px;
   border: 1px solid $primary-black;
 }
 
-.sign-in-button {
-  color: blue;
-}
+// .sign-in-button {
+
+// }
 
 .nav-sub-header {
   color: $primary-black;

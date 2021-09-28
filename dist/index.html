@@ -18,44 +18,42 @@
     </div>
   </nav>
   <main>
-    <section class="login-container hidden">
-      <p class="user-login-title">USER LOGIN:</p>
-      <section class="login-box">
-        <div class="username-field">
-          <label class="username">USERNAME</label>
-          <input class="username-input" type="text">
-        </div>
-        <div class="password-field">
-          <label class="password">PASSWORD</label>
-          <input class="password-input" type="text">
-        </div>
-        <button class="sign-in-button">SIGN IN</button>
-      </section>
+    <div class="login-div">
+      <section class="login-container">
+        <p class="user-login-title">USER LOGIN:</p>
+        <section class="login-box">
+          <div class="username-field">
+            <label class="username">USERNAME</label>
+            <input id="usernameInput" class="username-input" type="text">
+          </div>
+          <div class="password-field">
+            <label class="password">PASSWORD</label>
+            <input id="passwordInput" class="password-input" type="text">
+          </div>
+          <button id="signInButton" class="sign-in-button" aria-label="sign-in-button">SIGN IN</button>
+        </section>
+    </div>
     </section>
-    <section class="bookings-container">
+    <section class="bookings-container hidden">
       <h2 class="bookings-title">BOOKINGS</h2>
-      <p>Past, present, future bookings listed here</p>
-      <p>Total: Enter total cost of bookings here</p>
+      <p class="guest-bookings"></p>
+      <p class ="total-spent">Total: Enter total cost of bookings here</p>
     </section>
     <section class="room-options-container hidden">
       <div class="king-suites-container">
         <p>King Suites</p>
-        <img/>
-        <button class="check-availabilty-button">CHECK AVAILABILITY</button>
+        <button class="check-availabilty-button">Book</button>
       </div>
       <div class="queen-suites-container">
         <p>Queen Suites</p>
-        <img/>
-        <button class="check-availabilty-button">CHECK AVAILABILITY</button>
+        <button class="check-availabilty-button">Book</button>
       </div>
       <div class="deluxe-suites-container">
         <p>Deluxe Suites</p>
-        <img/>
-        <button class="check-availabilty-button">CHECK AVAILABILITY</button>
+        <button class="check-availabilty-button">Book</button>
       </div>
     </section>
   </main>
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 </body>
 </html>
