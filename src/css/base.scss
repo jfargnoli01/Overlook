@@ -40,7 +40,7 @@ main {
   width: 340px;
   border: 1px solid $primary-black;
 }
-
+ 
 // .sign-in-button {
 
 // }
@@ -56,6 +56,31 @@ main {
   font-family: 'Montserrat', sans-serif;
   border-style: none;
   background-color: none;
+}
+
+.welcome-message {
+  color: blue;
+}
+
+.room-options-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.room-options {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+}
+
+.room-div {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  margin-right: 5px;
+  width: 18em;
 }
 
 .hidden {
