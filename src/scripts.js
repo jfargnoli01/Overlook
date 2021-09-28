@@ -4,8 +4,20 @@
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 import Guest from '../src/classes/Guest';
+import Dashboard from '../src/classes/Dashboard';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
+const roomFilterButton = document.querySelector('.room-type-search-button');
+const roomTypeCategories = document.querySelectorAll('.room-options');
+const roomFilterValue = document.querySelector('.room-type-search');
+
+let dashboard;
+
+const filterRoom = () => {
+  const roomTypeValue = document.querySelector('.room-type-input').value;
+  roomTypeCategories.forEach(cat => cat.classList.add('hidden'));
+  document.querySelector(`.${roomTypeValue}-options`).classList.remove('hidden');
+}
 
 const displayRoomsOnDom = (roomTypes, rooms) => {
   roomTypes.forEach(type => {
@@ -21,8 +33,6 @@ const displayRoomsOnDom = (roomTypes, rooms) => {
       }
     })
   })
-  // const roomType = filteredRooms[0].roomType.join('-')
-  // document.querySelector(`.${roomType}`).insertAdjacentHTML('beforeEnd', `<p>balls</p>`)
 }
 
 const filterRoomByType = (rooms) => {
@@ -46,10 +56,16 @@ const calculateTotalSpent = (rooms) => {
   filterRoomByType(rooms);
 }
 
+const createDashboard = (rooms) => {
+  dashboard = new Dashboard(rooms);
+  console.log(dashboard);
+  calculateTotalSpent(rooms)
+}
+
 const getRoomData = (bookings) => {
   fetch(`http://localhost:3001/api/v1/rooms`)
   .then(response => response.json())
-  .then(data => calculateTotalSpent(data.rooms))
+  .then(data => createDashboard(data.rooms))
   .catch(error => console.log(error));
 }
 
@@ -74,6 +90,7 @@ const createGuest = (guestInfo) => {
   document.querySelector('.login-div').classList.add('hidden');
   document.querySelector('.bookings-container').classList.remove('hidden');
   document.querySelector('.room-options-container').classList.remove('hidden');
+  document.querySelector('.search-container').classList.remove('hidden');
   document.querySelector('main').insertAdjacentHTML('beforeBegin', `
   <h3 class="welcome-message">Welcome back, ${guestInfo.name}</h3>
   `);
@@ -99,4 +116,5 @@ const loginGuest = () => {
 }
 
 loginButton.addEventListener('click', loginGuest);
+roomFilterButton.addEventListener('click', filterRoom);
 
