@@ -7,6 +7,34 @@ import Guest from '../src/classes/Guest';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
 
+const displayRoomsOnDom = (roomTypes, rooms) => {
+  roomTypes.forEach(type => {
+    rooms.forEach(room => {
+      if (room.roomType === type) {
+        document.querySelector(`.${type.split(' ').join('-')}-container`).insertAdjacentHTML('afterEnd', `
+          <div class="room-div">
+            <p>Room Number: ${room.number}</p>
+            <p>Bed Size: ${room.bedSize}</p>
+            <p>Number of Beds: ${room.numBeds}</p>
+          </div>
+        `)
+      }
+    })
+  })
+  // const roomType = filteredRooms[0].roomType.join('-')
+  // document.querySelector(`.${roomType}`).insertAdjacentHTML('beforeEnd', `<p>balls</p>`)
+}
+
+const filterRoomByType = (rooms) => {
+  const roomTypes = rooms.reduce((acc, room) => {
+    if (!acc.includes(room.roomType)) {
+      acc.push(room.roomType);
+    }
+    return acc;
+  }, []);
+  displayRoomsOnDom(roomTypes, rooms);
+}
+
 const calculateTotalSpent = (rooms) => {
   const totalSpent = rooms.reduce((acc, room) => {
     acc += room.costPerNight;
@@ -15,6 +43,7 @@ const calculateTotalSpent = (rooms) => {
   document.querySelector('.total-spent').insertAdjacentHTML('beforeEnd', `
     <p>You have spent a total of $${totalSpent} with us!</p>
   `)
+  filterRoomByType(rooms);
 }
 
 const getRoomData = (bookings) => {
@@ -45,7 +74,10 @@ const createGuest = (guestInfo) => {
   document.querySelector('.login-div').classList.add('hidden');
   document.querySelector('.bookings-container').classList.remove('hidden');
   document.querySelector('.room-options-container').classList.remove('hidden');
-  retrieveGuestBookings(newGuest.id)
+  document.querySelector('main').insertAdjacentHTML('beforeBegin', `
+  <h3 class="welcome-message">Welcome back, ${guestInfo.name}</h3>
+  `);
+  retrieveGuestBookings(newGuest.id);
 }
 
 const getGuest = (guestId) => {
