@@ -5,7 +5,14 @@
 import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
 
+// console.log('This is the JavaScript entry file - your code begins here.');
 
-console.log('This is the JavaScript entry file - your code begins here.');
+const getGuest = () => {
+  fetch('http://localhost:3001/api/v1/customers/50')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error));
+}
+
+getGuest();
