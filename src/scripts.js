@@ -135,7 +135,7 @@ const checkDates = () => {
 }
 
 const bookRoom = (event) => {
-  console.log(event.target.value);
+  event.target.parentNode.remove();
   fetch('http://localhost:3001/api/v1/bookings', {
     method: 'POST',
     body: JSON.stringify({ 
