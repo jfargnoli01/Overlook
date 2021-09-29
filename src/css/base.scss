@@ -48,9 +48,7 @@ p {
 }
 
 .login-div {
-  @include flex-justify-content-space-around();
-  padding: 40px;
-  width: 100%;
+  @include flex-justify-content-center();
 }
 
 .login-container {
