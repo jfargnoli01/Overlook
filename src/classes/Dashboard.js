@@ -1,9 +1,8 @@
 class Dashboard {
-  constructor(rooms, guestBookings, bookings) {
+  constructor(rooms, bookings) {
     this.rooms = rooms;
     this.currentRooms = rooms;
     this.bookings = bookings;
-    this.guestBookings = guestBookings;
     this.currentDate = JSON.stringify(new Date())
       .split('T')[0]
       .split('"')[1]
@@ -39,6 +38,11 @@ class Dashboard {
     } else {
       this.currentRooms = availableRooms;
     }
+  }
+
+  addNewBooking = (data) => {
+    console.log(data);
+    console.log(this.bookings);
   }
 };
 
