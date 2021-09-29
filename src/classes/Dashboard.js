@@ -8,7 +8,7 @@ class Dashboard {
       .split('T')[0]
       .split('"')[1]
       .split('-')
-      .join('/');;
+      .join('/');
   }
 
   filterRoomByType = (type) => {

@@ -63,7 +63,7 @@ const calculateTotalSpent = (rooms) => {
   const totalSpent = rooms.reduce((acc, room) => {
     acc += room.costPerNight;
     return acc;
-  }, 0)
+  }, 0);
   document.querySelector('.total-spent').insertAdjacentHTML('beforeEnd', `
     <p>You have spent a total of $${totalSpent} with us!</p>
   `)
@@ -141,7 +141,7 @@ const checkDates = () => {
 
 const bookRoom = (event) => {
   if (!event.target.value) {
-    return
+    return;
   }
   event.target.parentNode.remove();
   fetch('http://localhost:3001/api/v1/bookings', {
