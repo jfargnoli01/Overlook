@@ -1,12 +1,8 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 import Guest from '../src/classes/Guest';
 import Dashboard from '../src/classes/Dashboard';
+import { getBookings, getGuestById, getRooms, postBookRoom } from './apiCalls';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
 const roomFilterButton = document.querySelector('.room-type-search-button');
 const roomTypeCategories = document.querySelectorAll('.room-options');
@@ -76,10 +72,9 @@ const createDashboard = (rooms, guestBookings, bookings) => {
 }
 
 const getRoomData = (guestBookings, bookings) => {
-  fetch(`http://localhost:3001/api/v1/rooms`)
-  .then(response => response.json())
-  .then(data => createDashboard(data.rooms, guestBookings, bookings))
-  .catch(error => console.log(error));
+  getRooms()
+    .then(data => createDashboard(data.rooms, guestBookings, bookings))
+    .catch(error => console.log(error));
 }
 
 const convertBookingsToHTML = (guestBookings, bookings) => {
@@ -87,15 +82,14 @@ const convertBookingsToHTML = (guestBookings, bookings) => {
   guestBookings.map(booking => {
     document.querySelector('.guest-bookings').insertAdjacentHTML(
       'beforeEnd', `<p>You booked room ${booking.roomNumber} on ${booking.date}</p>`
-      );
+    );
   })
 }
 
 const retrieveGuestBookings = (guestId) => {
-  fetch(`http://localhost:3001/api/v1/bookings`)
-  .then(response => response.json())
-  .then(data => convertBookingsToHTML(data.bookings.filter(booking => booking.userID === guestId.id), data.bookings))
-  .catch(error => console.log(error));
+  getBookings()
+    .then(data => convertBookingsToHTML(data.bookings.filter(booking => booking.userID === guestId.id), data.bookings))
+    .catch(error => console.log(error));
 }
 
 const createGuest = (guestInfo) => {
@@ -111,10 +105,9 @@ const createGuest = (guestInfo) => {
 }
 
 const getGuest = (guestId) => {
-  fetch(`http://localhost:3001/api/v1/customers/${guestId}`)
-  .then(response => response.json())
-  .then(data => createGuest(data))
-  .catch(error => console.log(error));
+  getGuestById(guestId)
+    .then(data => createGuest(data))
+    .catch(error => console.log(error));
 }
 
 const loginGuest = () => {
@@ -143,21 +136,16 @@ const bookRoom = (event) => {
   if (!event.target.value) {
     return;
   }
+
   event.target.parentNode.remove();
-  fetch('http://localhost:3001/api/v1/bookings', {
-    method: 'POST',
-    body: JSON.stringify({ 
-      "userID": newGuest.id.id,
-      "date": dashboard.currentDate,
-      "roomNumber": parseInt(event.target.value, 10)
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error))
+
+  const userId = newGuest.id.id;
+  const date = dashboard.currentDate;
+  const roomNumber = parseInt(event.target.value, 10);
+
+  postBookRoom(userId, date, roomNumber)
+    .then(data => console.log(data)) // DO something with new booking
+    .catch(error => console.log(error))
 }
 
 loginButton.addEventListener('click', loginGuest);
