@@ -8,19 +8,6 @@ const roomFilterValue = document.querySelector('.room-type-search');
 const roomTypeCategories = document.querySelectorAll('.room-options');
 
 /* Render functions */
-const filterRoom = () => {
-  const roomTypeValue = document.querySelector('.room-type-input').value;
-  if (roomTypeValue === 'All') {
-    dashboard.filterRoomByType(roomTypeValue);
-    roomTypeCategories.forEach(cat => cat.classList.remove('hidden'));
-  } else {
-    roomTypeCategories.forEach(cat => cat.classList.add('hidden'));
-    document.querySelector(`.${roomTypeValue}-options`).classList.remove('hidden');
-  }
-  noRoomsMessage.classList.add('hidden');
-  dashboard.filterRoomByType(roomTypeValue);
-}
-
 const renderBookings = (guestBookings) => {
   guestBookings.map(booking => {
     renderBooking(booking);
@@ -68,7 +55,6 @@ const renderTotalSpent = (totalSpent) => {
 
 export {
   dateFilterButton,
-  filterRoom,
   loginButton,
   noRoomsMessage,
   roomsContainer,

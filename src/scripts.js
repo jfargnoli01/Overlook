@@ -4,11 +4,12 @@ import Dashboard from '../src/classes/Dashboard';
 import { getBookings, getGuestById, getRooms, postBookRoom } from './apiCalls';
 import {
   dateFilterButton,
-  filterRoom,
   loginButton,
   noRoomsMessage,
   roomsContainer,
   roomFilterButton,
+  roomFilterValue,
+  roomTypeCategories,
   renderBooking,
   renderBookings,
   renderDashboard,
@@ -30,6 +31,19 @@ const filterRoomByType = (rooms) => {
   renderRooms(roomTypes, rooms);
 }
 
+const filterRoom = () => {
+  const roomTypeValue = document.querySelector('.room-type-input').value;
+  if (roomTypeValue === 'All') {
+    dashboard.filterRoomByType(roomTypeValue);
+    roomTypeCategories.forEach(cat => cat.classList.remove('hidden'));
+  } else {
+    roomTypeCategories.forEach(cat => cat.classList.add('hidden'));
+    document.querySelector(`.${roomTypeValue}-options`).classList.remove('hidden');
+  }
+  noRoomsMessage.classList.add('hidden');
+  dashboard.filterRoomByType(roomTypeValue);
+}
+
 const calculateTotalSpent = (rooms) => {
   const totalSpent = rooms.reduce((acc, room) => {
     acc += room.costPerNight;
@@ -41,7 +55,7 @@ const calculateTotalSpent = (rooms) => {
 
 const createDashboard = (rooms, bookings) => {
   dashboard = new Dashboard(rooms, bookings);
-  calculateTotalSpent(rooms)
+  calculateTotalSpent(rooms);
 }
 
 const getRoomData = (bookings) => {
@@ -93,7 +107,8 @@ const checkDates = () => {
     remainingDivs.forEach(room => room.classList.add('hidden'));
     noRoomsMessage.classList.remove('hidden');
   }
-  renderRooms(dashboard.currentRooms);
+
+  renderRooms(roomTypes, dashboard.currentRooms);
 }
 
 const bookRoom = (event) => {
