@@ -1,4 +1,30 @@
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 $primary-black: #000000;
 $primary-white: #FFFFFF;
+$primary-accent: #04364E;
+$secondary-accent: lightgray;
+$error-color: red;
 
+@mixin flex-justify-content-center() {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin flex-align-items-center() {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-justify-content-space-around() {
+  display: flex;
+  justify-content: space-around;
+}
+
+@mixin flex-column() {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row() {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,68 +1,88 @@
-/* This is an example of how to import a partial scss file*/
 @import '_variables';
 
-
-//font-family: 'Bodoni Moda', serif;
-// font-family: 'Montserrat', sans-serif;
+html {
+  height: 100%;
+}
 
 nav {
-  display: flex;
+  @include flex-justify-content-center;
   background-color: $primary-white;
-  justify-content: center;
+  border-bottom: 3px double $secondary-accent;
+  padding: 0 0 17px 0;
   text-align: center;
-  padding: 8px;
 }
 
 h1 {
-  color: $primary-black;
-  font-weight: 600;
-  margin: 20px 0 0 0;
+  color: $primary-accent;
   font-family: 'EB Garamond', serif;
   font-size: 45px;
+  font-weight: 600;
+  margin: 20px 0 0 0;
 }
 
 body {
+  background: url('../images/shining-maz.png');
+  flex: 1;
   margin: 0;
 }
 
 main {
-  background: url('../images/shining-maz.png');
-  display: flex;
   font-family: 'Montserrat', sans-serif; 
   margin: 0;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: $primary-accent;
+  border: .2px solid $primary-black;
+  border-radius: 3px;
+  border-style: none;
+  color: $primary-white;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  padding: 2px;
+}
+
+p {
+  padding: 12px;
 }
 
 .login-div {
+  @include flex-justify-content-center();
+}
+
+.login-container {
+  @include flex-justify-content-space-around();
+  align-items: center;
+  background-color: $primary-white;
+  border: 1px solid $primary-accent;
+  border-radius: 3px;
+  height: 14em;
+  padding: 5px;
+  width: 22em;
+}
+
+.login-container-wrapper {
   display: flex;
   justify-content: space-around;
   width: 100%;
 }
 
-.login-container {
-  align-items: center;
-  background-color: #fff;
-  display: flex;
-  justify-content: space-around;
-  height: 14em;
-  width: 22em;
-  border: 7px double #000000;
-  border-radius: 3px;
-  padding: 5px;
-}
-
 .login-box {
+  @include flex-column();
   align-items: center;
-  display: flex;
-  flex-direction: column;
 }
 
-.username-input {
+.input-box {
+  border-style: none;
+  border: .1px solid $primary-black;
+  border-radius: 3px;
   margin-bottom: 1em;
 }
  
 .sign-in-button {
-  cursor: pointer;
   margin-top: 1em;
   width: 11.5em;
 }
@@ -72,7 +92,9 @@ main {
 }
 
 .search-field-container {
-  display: flex;
+  @include flex-justify-content-center();
+  font-family: 'Montserrat';
+  padding: 20px;
 }
 
 .nav-sub-header {
@@ -83,71 +105,80 @@ main {
 }
 
 .check-availabilty-button {
-  font-family: 'Montserrat', sans-serif;
-  border-style: none;
   background-color: none;
+  border-style: none;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .welcome-message {
   color: $primary-black;
-  font-weight: 500;
+  font-size: 2em;
   font-style: italic;
+  font-weight: 500;
   margin-left: 20px;
 }
 
 .bookings-container {
   height: 650px;
-  padding: 1em;
+  padding: 0 2em;
 }
 
 .bookings-title {
+  font-size: 22px;
   font-weight: 400;
-  font-size: 24px;
+  margin: 0;
+  text-align: center;
 }
 
 .guest-bookings {
-  text-align: center;
-  background: white;
+  background: $primary-white;
+  border: 1px solid $secondary-accent;
   padding: 2px;
-  border: 1px solid black;
+  text-align: center;
 }
 
 .room-options-container {
-  display: flex;
-  flex-direction: column;
-  padding-top: 1em;
+  @include flex-column();
   width: 100%;
 }
 
 .room-options {
-  display: flex;
-  flex-direction: row;
+  @include flex-row();
   overflow: scroll;
 }
 
 .room-type-title {
-  margin-left: 1em;
-  margin-right: 3em;
+  padding-right: 64px;
 }
 
 .no-rooms-message {
-  color: red;
+  color: $error-color;
 }
 
 .wrong-password-message {
-  color: red;
+  color: $error-color;
 }
 
 .room-div {
-  background-color: #fff;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
+  @include flex-row();
+  background-color: $primary-white;
+  border: 1px solid $secondary-accent;
   height: 100px;
   margin-bottom: 1em;
-  margin-right: 5px;
-  padding: .5em;
-  width: 18em;
+  margin-right: 6px;
+  max-width: 18em;
+  justify-content: center;
+  padding: 1.5em;
+}
+
+.guest-bookings {
+  width: 200px;
+}
+
+.total-spent {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0;
 }
 
 .hidden {
