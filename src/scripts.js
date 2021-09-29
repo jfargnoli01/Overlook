@@ -2,6 +2,7 @@ import './css/base.scss';
 import Guest from '../src/classes/Guest';
 import Dashboard from '../src/classes/Dashboard';
 import { getBookings, getGuestById, getRooms, postBookRoom } from './apiCalls';
+import { renderBookings, renderDashboard } from './domUpdates';
 
 const loginButton = document.querySelector('#signInButton');
 const roomFilterButton = document.querySelector('.room-type-search-button');
@@ -66,47 +67,14 @@ const calculateTotalSpent = (rooms) => {
   filterRoomByType(rooms);
 }
 
-const createDashboard = (rooms, guestBookings, bookings) => {
-  dashboard = new Dashboard(rooms, guestBookings, bookings);
+const createDashboard = (rooms, bookings) => {
+  dashboard = new Dashboard(rooms, bookings);
   calculateTotalSpent(rooms)
 }
 
-const getRoomData = (guestBookings, bookings) => {
+const getRoomData = (bookings) => {
   getRooms()
-    .then(data => createDashboard(data.rooms, guestBookings, bookings))
-    .catch(error => console.log(error));
-}
-
-const convertBookingsToHTML = (guestBookings, bookings) => {
-  getRoomData(guestBookings, bookings);
-  guestBookings.map(booking => {
-    document.querySelector('.guest-bookings').insertAdjacentHTML(
-      'beforeEnd', `<p>You booked room ${booking.roomNumber} on ${booking.date}</p>`
-    );
-  })
-}
-
-const retrieveGuestBookings = (guestId) => {
-  getBookings()
-    .then(data => convertBookingsToHTML(data.bookings.filter(booking => booking.userID === guestId.id), data.bookings))
-    .catch(error => console.log(error));
-}
-
-const createGuest = (guestInfo) => {
-  newGuest = new Guest(guestInfo);
-  document.querySelector('.login-div').classList.add('hidden');
-  document.querySelector('.bookings-container').classList.remove('hidden');
-  document.querySelector('.room-options-container').classList.remove('hidden');
-  document.querySelectorAll('.search-container').forEach(container => container.classList.remove('hidden'));
-  document.querySelector('main').insertAdjacentHTML('beforeBegin', `
-  <h3 class="welcome-message">Welcome back, ${guestInfo.name}</h3>
-  `);
-  retrieveGuestBookings(newGuest.id);
-}
-
-const getGuest = (guestId) => {
-  getGuestById(guestId)
-    .then(data => createGuest(data))
+    .then(data => createDashboard(data.rooms, bookings))
     .catch(error => console.log(error));
 }
 
@@ -114,11 +82,34 @@ const loginGuest = () => {
   const guestName = document.querySelector('#usernameInput').value;
   const guestPassword = document.querySelector('#passwordInput').value;
   const guestId = guestName.split('r')[1];
+
   if (guestPassword === 'overlook2021') {
     getGuest(guestId);
   } else {
     document.querySelector('.wrong-password-message').classList.remove('hidden');
   }
+}
+
+const getGuest = (guestId) => {
+  getGuestById(guestId)
+    .then(guestInfo => {
+      retrieveGuestBookings(guestInfo);
+    })
+    .catch(error => console.log(error));
+}
+
+const retrieveGuestBookings = (guestInfo) => {
+  getBookings()
+    .then(data => {
+      const guestBookings = data.bookings.filter(booking =>
+        booking.userID === guestInfo.id);
+
+      newGuest = new Guest(guestInfo, guestBookings);
+      renderDashboard(guestInfo);
+      renderBookings(guestBookings);
+      getRoomData(data.bookings);
+    })
+    .catch(error => console.log(error));
 }
 
 const checkDates = () => {
@@ -144,7 +135,7 @@ const bookRoom = (event) => {
   const roomNumber = parseInt(event.target.value, 10);
 
   postBookRoom(userId, date, roomNumber)
-    .then(data => console.log(data)) // DO something with new booking
+    .then(data => dashboard.addNewBooking(data))
     .catch(error => console.log(error))
 }
 
