@@ -31,7 +31,6 @@ describe('Dashboard class', () => {
     .split('"')[1]
     .split('-')
     .join('/');
-    console.log(expected);
     expect(dashboard.currentDate).to.equal(expected);
   })
 
