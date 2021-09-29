@@ -2,49 +2,23 @@ import './css/base.scss';
 import Guest from '../src/classes/Guest';
 import Dashboard from '../src/classes/Dashboard';
 import { getBookings, getGuestById, getRooms, postBookRoom } from './apiCalls';
-import { renderBooking, renderBookings, renderDashboard } from './domUpdates';
-
-const loginButton = document.querySelector('#signInButton');
-const roomFilterButton = document.querySelector('.room-type-search-button');
-const roomTypeCategories = document.querySelectorAll('.room-options');
-const roomFilterValue = document.querySelector('.room-type-search');
-const dateFilterButton = document.querySelector('.date-filter-button');
-const roomsContainer = document.querySelector('.room-options-container');
-const noRoomsMessage = document.querySelector('.no-rooms-message');
+import {
+  dateFilterButton,
+  filterRoom,
+  loginButton,
+  noRoomsMessage,
+  roomsContainer,
+  roomFilterButton,
+  renderBooking,
+  renderBookings,
+  renderDashboard,
+  renderRooms,
+  renderTotalSpent
+ } from './domUpdates';
 
 let dashboard;
 let newGuest;
 let roomTypes;
-
-const filterRoom = () => {
-  const roomTypeValue = document.querySelector('.room-type-input').value;
-  if (roomTypeValue === 'All') {
-    dashboard.filterRoomByType(roomTypeValue);
-    roomTypeCategories.forEach(cat => cat.classList.remove('hidden'));
-  } else {
-    roomTypeCategories.forEach(cat => cat.classList.add('hidden'));
-    document.querySelector(`.${roomTypeValue}-options`).classList.remove('hidden');
-  }
-  noRoomsMessage.classList.add('hidden');
-  dashboard.filterRoomByType(roomTypeValue);
-}
-
-const displayRoomsOnDom = (rooms) => {
-  roomTypes.forEach(type => {
-    rooms.forEach(room => {
-      if (room.roomType === type) {
-        document.querySelector(`.${type.split(' ').join('-')}-container`).insertAdjacentHTML('afterEnd', `
-          <div class="room-div">
-            <p>Room Number: ${room.number}</p>
-            <p>Bed Size: ${room.bedSize}</p>
-            <p>Number of Beds: ${room.numBeds}</p>
-            <button value="${room.number}" class="book-button">Book Room<buttton/>
-          </div>
-        `)
-      }
-    })
-  })
-}
 
 const filterRoomByType = (rooms) => {
   roomTypes = rooms.reduce((acc, room) => {
@@ -53,7 +27,7 @@ const filterRoomByType = (rooms) => {
     }
     return acc;
   }, []);
-  displayRoomsOnDom(rooms);
+  renderRooms(roomTypes, rooms);
 }
 
 const calculateTotalSpent = (rooms) => {
@@ -61,9 +35,7 @@ const calculateTotalSpent = (rooms) => {
     acc += room.costPerNight;
     return acc;
   }, 0);
-  document.querySelector('.total-spent').insertAdjacentHTML('beforeEnd', `
-    <p>You have spent a total of $${totalSpent} with us!</p>
-  `)
+  renderTotalSpent(totalSpent);
   filterRoomByType(rooms);
 }
 
@@ -121,7 +93,7 @@ const checkDates = () => {
     remainingDivs.forEach(room => room.classList.add('hidden'));
     noRoomsMessage.classList.remove('hidden');
   }
-  displayRoomsOnDom(dashboard.currentRooms);
+  renderRooms(dashboard.currentRooms);
 }
 
 const bookRoom = (event) => {
@@ -143,8 +115,8 @@ const bookRoom = (event) => {
     .catch(error => console.log(error))
 }
 
+/* Event listeners */
 loginButton.addEventListener('click', loginGuest);
 roomFilterButton.addEventListener('click', filterRoom);
 dateFilterButton.addEventListener('click', checkDates);
 roomsContainer.addEventListener('click', bookRoom);
-
