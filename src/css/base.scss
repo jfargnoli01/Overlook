@@ -96,6 +96,7 @@ main {
 }
 
 .bookings-container {
+  height: 650px;
   padding: 1em;
 }
 
@@ -127,6 +128,14 @@ main {
 .room-type-title {
   margin-left: 1em;
   margin-right: 3em;
+}
+
+.no-rooms-message {
+  color: red;
+}
+
+.wrong-password-message {
+  color: red;
 }
 
 .room-div {

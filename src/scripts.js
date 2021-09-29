@@ -5,6 +5,7 @@
 import './css/base.scss';
 import Guest from '../src/classes/Guest';
 import Dashboard from '../src/classes/Dashboard';
+
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
 const roomFilterButton = document.querySelector('.room-type-search-button');
@@ -12,6 +13,7 @@ const roomTypeCategories = document.querySelectorAll('.room-options');
 const roomFilterValue = document.querySelector('.room-type-search');
 const dateFilterButton = document.querySelector('.date-filter-button');
 const roomsContainer = document.querySelector('.room-options-container');
+const noRoomsMessage = document.querySelector('.no-rooms-message');
 
 let dashboard;
 let newGuest;
@@ -26,11 +28,11 @@ const filterRoom = () => {
     roomTypeCategories.forEach(cat => cat.classList.add('hidden'));
     document.querySelector(`.${roomTypeValue}-options`).classList.remove('hidden');
   }
+  noRoomsMessage.classList.add('hidden');
   dashboard.filterRoomByType(roomTypeValue);
 }
 
 const displayRoomsOnDom = (rooms) => {
-  console.log(rooms, dashboard.currentRooms);
   roomTypes.forEach(type => {
     rooms.forEach(room => {
       if (room.roomType === type) {
@@ -70,7 +72,6 @@ const calculateTotalSpent = (rooms) => {
 
 const createDashboard = (rooms, guestBookings, bookings) => {
   dashboard = new Dashboard(rooms, guestBookings, bookings);
-  console.log(dashboard);
   calculateTotalSpent(rooms)
 }
 
@@ -91,7 +92,7 @@ const convertBookingsToHTML = (guestBookings, bookings) => {
 }
 
 const retrieveGuestBookings = (guestId) => {
-  const bookings = fetch(`http://localhost:3001/api/v1/bookings`)
+  fetch(`http://localhost:3001/api/v1/bookings`)
   .then(response => response.json())
   .then(data => convertBookingsToHTML(data.bookings.filter(booking => booking.userID === guestId.id), data.bookings))
   .catch(error => console.log(error));
@@ -123,18 +124,25 @@ const loginGuest = () => {
   if (guestPassword === 'overlook2021') {
     getGuest(guestId);
   } else {
-    console.log('wrong passwrod');
+    document.querySelector('.wrong-password-message').classList.remove('hidden');
   }
 }
 
 const checkDates = () => {
+  noRoomsMessage.classList.add('hidden');
   const searchDate = document.querySelector('.date-filter-input').value;
-  dashboard.updateCurrentRooms(searchDate);
-  document.querySelectorAll('.room-div').forEach(room => room.remove());
+  if (dashboard.updateCurrentRooms(searchDate) === 'No Rooms') {
+    const remainingDivs = document.querySelectorAll('.room-div');
+    remainingDivs.forEach(room => room.classList.add('hidden'));
+    noRoomsMessage.classList.remove('hidden');
+  }
   displayRoomsOnDom(dashboard.currentRooms);
 }
 
 const bookRoom = (event) => {
+  if (!event.target.value) {
+    return
+  }
   event.target.parentNode.remove();
   fetch('http://localhost:3001/api/v1/bookings', {
     method: 'POST',
