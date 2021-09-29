@@ -4,13 +4,17 @@
 
 //font-family: 'Bodoni Moda', serif;
 // font-family: 'Montserrat', sans-serif;
+html {
+  height: 100%;
+}
 
 nav {
   display: flex;
-  background-color: $primary-white;
+  background-color: #FFFFFF;
   justify-content: center;
   text-align: center;
-  padding: 8px;
+  padding: 0 0 17px 0;
+  border-bottom: .1px solid lightslategray;
 }
 
 h1 {
@@ -23,19 +27,36 @@ h1 {
 
 body {
   margin: 0;
+  flex: 1;
+  background: url('../images/shining-maz.png');
 }
 
 main {
-  background: url('../images/shining-maz.png');
   display: flex;
   font-family: 'Montserrat', sans-serif; 
   margin: 0;
   width: 100%;
+  vh: 100%;
+}
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  color: $primary-white;
+  border-style: none;
+  border-radius: 3px;
+  background-color: #04364E;
+  border: .2px solid $primary-black;
+  padding: 2px;
+}
+
+p {
+  padding: 12px;
 }
 
 .login-div {
   display: flex;
   justify-content: space-around;
+  padding: 40px;
   width: 100%;
 }
 
@@ -57,8 +78,11 @@ main {
   flex-direction: column;
 }
 
-.username-input {
+.input-box {
   margin-bottom: 1em;
+  border-style: none;
+  border: .1px solid $primary-black;
+  border-radius: 3px;
 }
  
 .sign-in-button {
@@ -73,6 +97,9 @@ main {
 
 .search-field-container {
   display: flex;
+  font-family: 'Montserrat';
+  justify-content: center;
+  padding: 20px;
 }
 
 .nav-sub-header {
@@ -93,16 +120,19 @@ main {
   font-weight: 500;
   font-style: italic;
   margin-left: 20px;
+  font-size: 2em;
 }
 
 .bookings-container {
   height: 650px;
-  padding: 1em;
+  padding: 0 2em;
 }
 
 .bookings-title {
   font-weight: 400;
-  font-size: 24px;
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
 }
 
 .guest-bookings {
@@ -115,7 +145,6 @@ main {
 .room-options-container {
   display: flex;
   flex-direction: column;
-  padding-top: 1em;
   width: 100%;
 }
 
@@ -126,8 +155,7 @@ main {
 }
 
 .room-type-title {
-  margin-left: 1em;
-  margin-right: 3em;
+  padding-right: 64px;
 }
 
 .no-rooms-message {
@@ -145,9 +173,20 @@ main {
   flex-direction: row;
   height: 100px;
   margin-bottom: 1em;
-  margin-right: 5px;
-  padding: .5em;
-  width: 18em;
+  margin-right: 6px;
+  justify-content: center;
+  padding: 1.5em;
+  max-width: 18em;
+}
+
+.guest-bookings {
+  width: 200px;
+}
+
+.total-spent {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0;
 }
 
 .hidden {
