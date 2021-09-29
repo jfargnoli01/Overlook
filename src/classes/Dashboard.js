@@ -39,11 +39,6 @@ class Dashboard {
       this.currentRooms = availableRooms;
     }
   }
-
-  addNewBooking = (data) => {
-    console.log(data);
-    console.log(this.bookings);
-  }
 };
 
 export default Dashboard;
