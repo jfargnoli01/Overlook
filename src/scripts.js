@@ -2,7 +2,7 @@ import './css/base.scss';
 import Guest from '../src/classes/Guest';
 import Dashboard from '../src/classes/Dashboard';
 import { getBookings, getGuestById, getRooms, postBookRoom } from './apiCalls';
-import { renderBookings, renderDashboard } from './domUpdates';
+import { renderBooking, renderBookings, renderDashboard } from './domUpdates';
 
 const loginButton = document.querySelector('#signInButton');
 const roomFilterButton = document.querySelector('.room-type-search-button');
@@ -105,6 +105,7 @@ const retrieveGuestBookings = (guestInfo) => {
         booking.userID === guestInfo.id);
 
       newGuest = new Guest(guestInfo, guestBookings);
+      console.log(newGuest);
       renderDashboard(guestInfo);
       renderBookings(guestBookings);
       getRoomData(data.bookings);
@@ -130,12 +131,15 @@ const bookRoom = (event) => {
 
   event.target.parentNode.remove();
 
-  const userId = newGuest.id.id;
+  const userId = newGuest.id;
   const date = dashboard.currentDate;
   const roomNumber = parseInt(event.target.value, 10);
 
   postBookRoom(userId, date, roomNumber)
-    .then(data => dashboard.addNewBooking(data))
+    .then(data => {
+      newGuest.addNewBooking(data.newBooking);
+      renderBooking(data.newBooking);
+    })
     .catch(error => console.log(error))
 }
 

@@ -1,9 +1,13 @@
 const renderBookings = (guestBookings) => {
   guestBookings.map(booking => {
-    document.querySelector('.guest-bookings').insertAdjacentHTML(
-      'beforeEnd', `<p>You booked room ${booking.roomNumber} on ${booking.date}</p>`
-    );
+    renderBooking(booking);
   });
+}
+
+const renderBooking = (booking) => {
+  document.querySelector('.guest-bookings').insertAdjacentHTML(
+    'beforeEnd', `<p>You booked room ${booking.roomNumber} on ${booking.date}</p>`
+  );
 }
 
 const renderDashboard = (guestInfo) => {
@@ -17,6 +21,7 @@ const renderDashboard = (guestInfo) => {
 }
 
 export {
+  renderBooking,
   renderBookings,
   renderDashboard,
 }
