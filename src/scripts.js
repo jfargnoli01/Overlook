@@ -5,15 +5,19 @@
 import './css/base.scss';
 import Guest from '../src/classes/Guest';
 import Dashboard from '../src/classes/Dashboard';
+
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 const loginButton = document.querySelector('#signInButton');
 const roomFilterButton = document.querySelector('.room-type-search-button');
 const roomTypeCategories = document.querySelectorAll('.room-options');
 const roomFilterValue = document.querySelector('.room-type-search');
 const dateFilterButton = document.querySelector('.date-filter-button');
+const roomsContainer = document.querySelector('.room-options-container');
+const noRoomsMessage = document.querySelector('.no-rooms-message');
 
 let dashboard;
 let newGuest;
+let roomTypes;
 
 const filterRoom = () => {
   const roomTypeValue = document.querySelector('.room-type-input').value;
@@ -24,10 +28,11 @@ const filterRoom = () => {
     roomTypeCategories.forEach(cat => cat.classList.add('hidden'));
     document.querySelector(`.${roomTypeValue}-options`).classList.remove('hidden');
   }
+  noRoomsMessage.classList.add('hidden');
   dashboard.filterRoomByType(roomTypeValue);
 }
 
-const displayRoomsOnDom = (roomTypes, rooms) => {
+const displayRoomsOnDom = (rooms) => {
   roomTypes.forEach(type => {
     rooms.forEach(room => {
       if (room.roomType === type) {
@@ -36,6 +41,7 @@ const displayRoomsOnDom = (roomTypes, rooms) => {
             <p>Room Number: ${room.number}</p>
             <p>Bed Size: ${room.bedSize}</p>
             <p>Number of Beds: ${room.numBeds}</p>
+            <button value="${room.number}" class="book-button">Book Room<buttton/>
           </div>
         `)
       }
@@ -44,13 +50,13 @@ const displayRoomsOnDom = (roomTypes, rooms) => {
 }
 
 const filterRoomByType = (rooms) => {
-  const roomTypes = rooms.reduce((acc, room) => {
+  roomTypes = rooms.reduce((acc, room) => {
     if (!acc.includes(room.roomType)) {
       acc.push(room.roomType);
     }
     return acc;
   }, []);
-  displayRoomsOnDom(roomTypes, rooms);
+  displayRoomsOnDom(rooms);
 }
 
 const calculateTotalSpent = (rooms) => {
@@ -66,7 +72,6 @@ const calculateTotalSpent = (rooms) => {
 
 const createDashboard = (rooms, guestBookings, bookings) => {
   dashboard = new Dashboard(rooms, guestBookings, bookings);
-  console.log(dashboard);
   calculateTotalSpent(rooms)
 }
 
@@ -87,7 +92,7 @@ const convertBookingsToHTML = (guestBookings, bookings) => {
 }
 
 const retrieveGuestBookings = (guestId) => {
-  const bookings = fetch(`http://localhost:3001/api/v1/bookings`)
+  fetch(`http://localhost:3001/api/v1/bookings`)
   .then(response => response.json())
   .then(data => convertBookingsToHTML(data.bookings.filter(booking => booking.userID === guestId.id), data.bookings))
   .catch(error => console.log(error));
@@ -119,16 +124,44 @@ const loginGuest = () => {
   if (guestPassword === 'overlook2021') {
     getGuest(guestId);
   } else {
-    console.log('wrong passwrod');
+    document.querySelector('.wrong-password-message').classList.remove('hidden');
   }
 }
 
 const checkDates = () => {
+  noRoomsMessage.classList.add('hidden');
   const searchDate = document.querySelector('.date-filter-input').value;
-  dashboard.updateCurrentRooms(searchDate);
+  if (dashboard.updateCurrentRooms(searchDate) === 'No Rooms') {
+    const remainingDivs = document.querySelectorAll('.room-div');
+    remainingDivs.forEach(room => room.classList.add('hidden'));
+    noRoomsMessage.classList.remove('hidden');
+  }
+  displayRoomsOnDom(dashboard.currentRooms);
+}
+
+const bookRoom = (event) => {
+  if (!event.target.value) {
+    return
+  }
+  event.target.parentNode.remove();
+  fetch('http://localhost:3001/api/v1/bookings', {
+    method: 'POST',
+    body: JSON.stringify({ 
+      "userID": newGuest.id.id,
+      "date": dashboard.currentDate,
+      "roomNumber": parseInt(event.target.value, 10)
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error))
 }
 
 loginButton.addEventListener('click', loginGuest);
 roomFilterButton.addEventListener('click', filterRoom);
 dateFilterButton.addEventListener('click', checkDates);
+roomsContainer.addEventListener('click', bookRoom);
 

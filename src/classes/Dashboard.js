@@ -4,6 +4,11 @@ class Dashboard {
     this.currentRooms = rooms;
     this.bookings = bookings;
     this.guestBookings = guestBookings;
+    this.currentDate = JSON.stringify(new Date())
+      .split('T')[0]
+      .split('"')[1]
+      .split('-')
+      .join('/');;
   }
 
   filterRoomByType = (type) => {
@@ -17,6 +22,7 @@ class Dashboard {
   }
 
   updateCurrentRooms = (date) => {
+    this.currentDate = date;
     const availableRooms = this.currentRooms.filter(room => {
       const isRoomBooked = this.bookings.find(booking => {
         if (booking.date === date && booking.roomNumber === room.number) {
@@ -28,10 +34,9 @@ class Dashboard {
       }
       return false;
     })
-    if (availableRooms === []) {
-      console.log('Sorry, no roooooms');
+    if (!availableRooms.length) {
+      return 'No Rooms';
     } else {
-      console.log(availableRooms);
       this.currentRooms = availableRooms;
     }
   }
