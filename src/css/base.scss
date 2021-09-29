@@ -14,7 +14,7 @@ nav {
   justify-content: center;
   text-align: center;
   padding: 0 0 17px 0;
-  border-bottom: .1px solid lightslategray;
+  border-bottom: 3px double lightslategray;
 }
 
 h1 {
@@ -36,12 +36,12 @@ main {
   font-family: 'Montserrat', sans-serif; 
   margin: 0;
   width: 100%;
-  vh: 100%;
 }
 
 button {
   font-family: 'Montserrat', sans-serif;
   color: $primary-white;
+  cursor: pointer;
   border-style: none;
   border-radius: 3px;
   background-color: #04364E;
@@ -139,7 +139,7 @@ p {
   text-align: center;
   background: white;
   padding: 2px;
-  border: 1px solid black;
+  border: 1px solid lightgray
 }
 
 .room-options-container {
@@ -168,7 +168,7 @@ p {
 
 .room-div {
   background-color: #fff;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   display: flex;
   flex-direction: row;
   height: 100px;
