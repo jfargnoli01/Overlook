@@ -15,6 +15,7 @@ const roomsContainer = document.querySelector('.room-options-container');
 
 let dashboard;
 let newGuest;
+let roomTypes;
 
 const filterRoom = () => {
   const roomTypeValue = document.querySelector('.room-type-input').value;
@@ -28,7 +29,8 @@ const filterRoom = () => {
   dashboard.filterRoomByType(roomTypeValue);
 }
 
-const displayRoomsOnDom = (roomTypes, rooms) => {
+const displayRoomsOnDom = (rooms) => {
+  console.log(rooms, dashboard.currentRooms);
   roomTypes.forEach(type => {
     rooms.forEach(room => {
       if (room.roomType === type) {
@@ -46,13 +48,13 @@ const displayRoomsOnDom = (roomTypes, rooms) => {
 }
 
 const filterRoomByType = (rooms) => {
-  const roomTypes = rooms.reduce((acc, room) => {
+  roomTypes = rooms.reduce((acc, room) => {
     if (!acc.includes(room.roomType)) {
       acc.push(room.roomType);
     }
     return acc;
   }, []);
-  displayRoomsOnDom(roomTypes, rooms);
+  displayRoomsOnDom(rooms);
 }
 
 const calculateTotalSpent = (rooms) => {
@@ -128,6 +130,8 @@ const loginGuest = () => {
 const checkDates = () => {
   const searchDate = document.querySelector('.date-filter-input').value;
   dashboard.updateCurrentRooms(searchDate);
+  document.querySelectorAll('.room-div').forEach(room => room.remove());
+  displayRoomsOnDom(dashboard.currentRooms);
 }
 
 const bookRoom = (event) => {

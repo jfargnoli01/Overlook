@@ -24,7 +24,6 @@ class Dashboard {
   updateCurrentRooms = (date) => {
     console.log(this.currentDate)
     this.currentDate = date;
-    console.log(this.currentDate)
     const availableRooms = this.currentRooms.filter(room => {
       const isRoomBooked = this.bookings.find(booking => {
         if (booking.date === date && booking.roomNumber === room.number) {
@@ -39,7 +38,6 @@ class Dashboard {
     if (availableRooms === []) {
       console.log('Sorry, no roooooms');
     } else {
-      console.log(availableRooms);
       this.currentRooms = availableRooms;
     }
   }
