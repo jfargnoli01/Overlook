@@ -6,15 +6,15 @@ describe('Dashboard class', () => {
   beforeEach(function () {
     dashboard = new Dashboard([{
       roomType: 'single room',
-      roomNumber: 1
+      number: 1
     }, {
       roomType: 'suite',
-      roomNumber: 2
+      number: 2
     }],
       [{
         date: "2020/04/22",
         id: "5fwrgu4i7k55hl6sz",
-        roomNumber: 15,
+        roomNumber: 1,
         roomServiceCharges: [],
         userID: 9
       }, {
@@ -43,10 +43,10 @@ describe('Dashboard class', () => {
 
 
   it('should start with bookings', () => {
-    const expected = [[{
+    const expected = [{
       date: "2020/04/22",
       id: "5fwrgu4i7k55hl6sz",
-      roomNumber: 15,
+      roomNumber: 1,
       roomServiceCharges: [],
       userID: 9
     }, {
@@ -56,17 +56,17 @@ describe('Dashboard class', () => {
       roomServiceCharges: [],
       userID: 43
     }
-    ]]
+    ];
     expect(dashboard.bookings).to.deep.equal(expected);
   })
 
   it('should start with rooms', () => {
     const expected = [{
       roomType: 'single room',
-      roomNumber: 1
+      number: 1
     }, {
       roomType: 'suite',
-      roomNumber: 2
+      number: 2
     }]
     expect(dashboard.rooms).to.deep.equal(expected);
   })
@@ -74,10 +74,10 @@ describe('Dashboard class', () => {
   it('should update currentRooms with All', () => {
     const expected = [{
       roomType: 'single room',
-      roomNumber: 1
+      number: 1
     }, {
       roomType: 'suite',
-      roomNumber: 2
+      number: 2
     }]
     dashboard.filterRoomByType('All');
     expect(dashboard.currentRooms).to.deep.equal(expected);
@@ -86,15 +86,24 @@ describe('Dashboard class', () => {
   it('should update currentRooms with different roomTypes', () => {
     const expected = [{
       roomType: 'single room',
-      roomNumber: 1
+      number: 1
     }]
     dashboard.filterRoomByType('single-room');
     expect(dashboard.currentRooms).to.deep.equal(expected);
   })
 
   it('should update the currentDate when updateCurrentRooms is called', () => {
-    dashboard.updateCurrentRooms(2020 / 11 / 1);
-    expect(dashboard.currentDate).to.equal(2020 / 11 / 1);
-  })
+    dashboard.updateCurrentRooms('2020/11/1');
+    expect(dashboard.currentDate).to.equal('2020/11/1');
+  });
 
+  it('should filter rooms by date if a booking exists', () => {
+    const expected = [{
+      roomType: 'suite',
+      number: 2
+    }];
+
+    dashboard.updateCurrentRooms('2020/04/22');
+    expect(dashboard.currentRooms).to.deep.equal(expected);
+  })
 })
