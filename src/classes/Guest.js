@@ -1,7 +1,13 @@
 class Guest {
-  constructor(id, name) {
-    this.name = name;
-    this.id = id;
+  constructor(details, bookings) {
+    this.name = details.name;
+    this.id = details.id;
+    this.bookings = bookings;
+  }
+
+  addNewBooking = (newBooking) => {
+    console.log(newBooking);
+    this.bookings.push(newBooking);
   }
 };
 

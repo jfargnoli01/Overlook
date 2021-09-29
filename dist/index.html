@@ -41,12 +41,12 @@
         <section class="login-container">
           <section class="login-box">
             <div class="username-field">
-              <label class="username">USERNAME</label>
+              <label for="usernameInput" aria-label="Username input" class="username">USERNAME</label>
               <input id="usernameInput" class="username-input input-box" type="text">
             </div>
             <div class="password-field">
-              <label class="password">PASSWORD</label>
-              <input id="passwordInput" class="password-input input-box" type="text">
+              <label for="passwordInput" aria-label="Password input" class="password">PASSWORD</label>
+              <input id="passwordInput" class="password-input input-box" type="password">
             </div>
             <button id="signInButton" class="sign-in-button" aria-label="sign-in-button">SIGN IN</button>
             <p class="wrong-password-message hidden">Incorrect username or password</p>
@@ -60,7 +60,7 @@
       <p class ="total-spent"></p>
     </section>
     <section class="room-options-container hidden">
-      <p class="no-rooms-message hidden">We apologize for the inconvenience, but no rooms are available on these dates, please adjust your search.</p>
+      <p class="no-rooms-message hidden">We apologize for the inconvenience, but no rooms are available on these dates, please select a new date.</p>
       <div class="room-options single-room-options">
         <p class="room-type-title single-room-container">SINGLE ROOMS:</p>
       </div>

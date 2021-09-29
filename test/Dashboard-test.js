@@ -12,13 +12,6 @@ describe('Dashboard class', () => {
         roomNumber: 2
       }], 
       [{
-        roomType: 'junior suite', 
-        roomNumber: 3
-      }, {
-        roomType: 'suite', 
-        roomNumber: 4
-      }], 
-      [{
         roomType: 'residential suite', 
         roomNumber: 7
       }, {
@@ -42,16 +35,7 @@ describe('Dashboard class', () => {
     expect(dashboard.currentDate).to.equal(expected);
   })
 
-  it('should start with guestBookings', () => {
-    const expected = [{
-      roomType: 'junior suite', 
-      roomNumber: 3
-    }, {
-      roomType: 'suite', 
-      roomNumber: 4
-    }]
-    expect(dashboard.guestBookings).to.deep.equal(expected);
-  })
+
 
   it('should start with bookings', () => {
     const expected = [{
