@@ -14,15 +14,11 @@ This application is a virtual hotel dashboard where users can sign in to view an
 
 Sign In View:
 
-![sign in view overlook]()
+<img width="1422" alt="Screen Shot 2021-09-29 at 7 57 05 AM" src="https://user-images.githubusercontent.com/77421040/135284284-3fed416b-9da2-4129-8840-0fb4ed3bbb91.png">
 
-Guest Dahboard:
+Guest Dashboard:
 
-![guest dashboard overlook]()
-
-Video Demonstration:
-
-![demo overlook]()
+<img width="1435" alt="Screen Shot 2021-09-29 at 7 58 16 AM" src="https://user-images.githubusercontent.com/77421040/135284104-39f0b95c-8eea-464a-88e7-d6ab801cda76.png">
 
 ## Technologies
 
@@ -44,7 +40,7 @@ Video Demonstration:
 ## Challenges
 
 - Working with the various API endpoints
-- Accessing and managing the data and ensuring we write clear readable code
+- Accessing and managing the data while writing clear readable code
 - Making atomic commits and PRs when working independently 
 - Completing project by deadline
 
