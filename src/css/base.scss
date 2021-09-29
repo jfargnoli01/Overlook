@@ -10,6 +10,7 @@ nav {
   background-color: $primary-white;
   justify-content: center;
   text-align: center;
+  padding: 8px;
 }
 
 h1 {
@@ -43,11 +44,21 @@ main {
   background-color: #fff;
   display: flex;
   justify-content: space-around;
-  height: 13em;
-  width: 20em;
-  border: 10px double $primary-black;
+  height: 14em;
+  width: 22em;
+  border: 7px double #000000;
   border-radius: 3px;
   padding: 5px;
+}
+
+.login-box {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.username-input {
+  margin-bottom: 1em;
 }
  
 .sign-in-button {

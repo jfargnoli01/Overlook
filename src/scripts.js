@@ -11,6 +11,7 @@ const roomFilterButton = document.querySelector('.room-type-search-button');
 const roomTypeCategories = document.querySelectorAll('.room-options');
 const roomFilterValue = document.querySelector('.room-type-search');
 const dateFilterButton = document.querySelector('.date-filter-button');
+const roomsContainer = document.querySelector('.room-options-container');
 
 let dashboard;
 let newGuest;
@@ -36,6 +37,7 @@ const displayRoomsOnDom = (roomTypes, rooms) => {
             <p>Room Number: ${room.number}</p>
             <p>Bed Size: ${room.bedSize}</p>
             <p>Number of Beds: ${room.numBeds}</p>
+            <button value="${room.number}" class="book-button">Book Room<buttton/>
           </div>
         `)
       }
@@ -128,7 +130,26 @@ const checkDates = () => {
   dashboard.updateCurrentRooms(searchDate);
 }
 
+const bookRoom = (event) => {
+  console.log(event.target.value);
+  fetch('http://localhost:3001/api/v1/bookings', {
+    method: 'POST',
+    body: JSON.stringify({ 
+      "userID": newGuest.id.id,
+      "date": dashboard.currentDate,
+      "roomNumber": parseInt(event.target.value, 10)
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error))
+}
+
 loginButton.addEventListener('click', loginGuest);
 roomFilterButton.addEventListener('click', filterRoom);
 dateFilterButton.addEventListener('click', checkDates);
+roomsContainer.addEventListener('click', bookRoom);
 
